@@ -1,0 +1,9 @@
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: Bucket
+metadata:
+  name: crossplane-test-bucket
+spec:
+  forProvider:
+    objectLockEnabled: true
+    tags:
+      Name: SampleBucket

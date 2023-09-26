@@ -1,0 +1,19 @@
+apiVersion: kuttl.dev/v1beta1
+kind: TestSuite
+commands:
+  - command: >
+      helm repo add crossplane-stable https://charts.crossplane.io/stable
+  - command: helm repo update
+  - command: >
+      helm install crossplane crossplane-stable/crossplane --namespace crossplane-system --create-namespace --wait
+  - command: >
+      kubectl apply  -f ./init/00-provider.yaml
+  - command: >
+      sleep 60
+  - command: >
+      kubectl apply  -f ./init/01-localstack.yaml
+testDirs:
+  # Test Cases
+  - tests/e2e/
+startKIND: true
+kindContext: kuttl-test
